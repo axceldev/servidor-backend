@@ -1,5 +1,6 @@
 const express = require('express');
 const conectarDB = require('./config/db')
+const cors = require('cors');
 
 //CREAMOS EL SERVIDOR
 
@@ -9,11 +10,11 @@ const app = express();
 
 conectarDB();
 
-//DEFINIMOS LAS RUTAS
+app.use(express.json());
 
-app.get('/', (req, res) =>{ 
-    res.send('Hola mundo');
-})
+app.use(cors());
+
+app.use('/api/productos', require('./routes/producto'));
 
 app.listen(4000, () => {
     console.log('El servidor corre perfectamente.');
